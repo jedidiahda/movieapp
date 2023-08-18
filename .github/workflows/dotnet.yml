@@ -20,8 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies /MovieWebApp
-      run: dotnet restore
+    - name: Restore dependencies 
+      run: dotnet restore ./MovieWebApp/MovieWebApp/MovieWebApp.csproj
     - name: Build
-      run: dotnet build /MovieWebApp --no-restore
+      run: dotnet build ./MovieWebApp/MovieWebApp/MovieWebApp.csproj --no-restore
 
