@@ -1,0 +1,6 @@
+<div class="login">
+  <label [hidden]="!this.authService.isLoggedIn">Hi {{this.authService.name}}!</label>
+  <a *ngIf="this.authService.isLoggedIn" class="btn btn-primary ms-2 me-1" (click)="onLogout()">Logout</a>
+  <!-- <a  *ngIf="!this.authService.isLoggedIn" class="btn btn-primary ms-2 me-1" (click)="onLogin()">Login</a> -->
+  
+</div>

@@ -1,0 +1,38 @@
+
+<div class="form-content">
+  <form [formGroup]="dvdCatalogForm" (ngSubmit)="onSubmit()">
+
+    <label for="name">Title</label>
+    <input type="text" id="title" formControlName="title" class="form-control" required="true"/>
+
+    <label>Description</label>
+    <textarea formControlName="description" class="form-control"  ></textarea>
+
+    <label>Genre</label>
+    <input type="text" formControlName="genre" class="form-control"  />
+
+    <label>Language</label>
+    <input type="text" formControlName="language" class="form-control"  />
+
+    <label>No of disk</label>
+    <input type="text" formControlName="noDisk" class="form-control"  required="true" />
+
+    <label>Stock Quantity</label>
+    <input type="text" formControlName="stockQty" class="form-control"  required="true" />
+
+    <label>Released Date</label>
+    <input type="date" placeholder="MM/dd/YYYY" formControlName="releasedDate"  class="form-control"  required="true" />
+
+    <div  class="form-group">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!dvdCatalogForm.valid"
+      >
+        Save
+      </button>
+      
+    </div>
+  </form>
+  
+</div>

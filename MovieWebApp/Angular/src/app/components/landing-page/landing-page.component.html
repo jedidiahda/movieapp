@@ -1,0 +1,13 @@
+<div class="subscription-content">
+  <div  *ngFor="let s of subscriptions">
+    <div class="subscription-item">
+      <h3 class="subscription-header">{{s.name}}</h3>
+      <ul> 
+        <li>{{s.price | currency}}/Month</li>
+        <li>No of DVD per month:{{s.noDvdperMonth}}</li>
+        <li>At home DVD allowed:{{s.atHomeDvd}}</li>
+      </ul>
+
+    </div>
+  </div>
+</div>

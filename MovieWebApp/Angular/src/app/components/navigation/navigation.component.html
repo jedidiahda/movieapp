@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/home">Home</a>
+  <a
+    class="navbar-brand"
+    *ngIf="this.authService.userRole == 'admin'"
+    routerLink="subscription"
+    >Subscription</a
+  >
+  <a
+    class="navbar-brand"
+    *ngIf="this.authService.userRole == 'admin'"
+    routerLink="dvdcatalog"
+    >DVD Catalog</a
+  >
+  <a
+  class="navbar-brand"
+  *ngIf="this.authService.userRole == 'admin'"
+  routerLink="delivery"
+  >Customer Delivery</a
+>
+
+  <a class="navbar-brand" *ngIf="this.authService.userRole == 'user' && this.isValidSubscription == true" routerLink="dvdstatus">DvdStatus</a>
+  <a class="navbar-brand" *ngIf="this.authService.userRole == 'user' && this.isValidSubscription == true" routerLink="watchlist">Watchlist</a>
+ 
+
+  <a
+    *ngIf="!this.authService.isLoggedIn"
+    class="navbar-brand"
+    routerLink="login"
+    >Login</a
+  >
+  <app-login-bar></app-login-bar>
+</nav>

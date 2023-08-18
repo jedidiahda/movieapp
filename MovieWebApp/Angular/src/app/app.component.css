@@ -1,0 +1,14 @@
+/* .content{
+  padding: 20px;
+  min-height: 100%;
+  margin-bottom: 110px;
+} */
+
+.content{
+  width: 1200px;
+  margin:auto;
+  padding: 20px;
+  min-height: 100%;
+  margin-bottom: 110px;
+
+}

@@ -1,0 +1,12 @@
+.vs
+.vscode
+.metadata
+
+
+node_modules
+packages
+bin
+
+*/node_modules
+*/packages
+*/bin

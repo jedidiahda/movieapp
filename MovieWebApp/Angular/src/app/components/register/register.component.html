@@ -1,0 +1,103 @@
+<form *ngIf="!this.authService.isLoggedIn" class="form-register" #registerForm="ngForm" (ngSubmit)="onSubmit()">
+  <h1 class="h6 mb-3 font-weight-normal">Profile Information</h1>
+  <label for="name">First Name</label>
+  <input
+    type="text"
+    id="firstName"
+    name="firstName"
+    class="form-control"
+    placeholder="first name"
+    required
+    autofocus="true"
+    ngModel
+  />
+
+  <label for="name">Last Name</label>
+  <input
+    type="text"
+    id="lastName"
+    name="lastName"
+    class="form-control"
+    placeholder="last name"
+    required
+    autofocus="true"
+    ngModel
+  />
+
+  <label for="name">Gender</label>
+  <select id="gender" name="gender" class="form-control" required autofocus="true" ngModel>
+    <option>F</option>
+    <option>M</option>
+  </select>
+
+  <label for="name">Address</label>
+  <input
+    type="text"
+    id="address"
+    name="address"
+    class="form-control"
+    placeholder="address"
+    autofocus="true"
+    ngModel
+  />
+  <div>&nbsp;</div>
+  <h1 class="h6 mb-3 font-weight-normal">Account</h1>
+  <label for="name">Email</label>
+  <input
+    type="text"
+    id="email"
+    name="email"
+    class="form-control"
+    placeholder="email"
+    autofocus="true"
+    required
+    ngModel
+  />
+
+  <label for="password">Password</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    class="form-control"
+    placeholder="password"
+    required
+    ngModel
+    #password="ngModel"
+  />
+
+
+  <label for="repeatPassword">Confirm Password</label>
+  <input
+    type="password"
+    id="repeatPassword"
+    name="repeatPassword"
+    class="form-control"
+    placeholder="Confirm password"
+    required
+    ngModel
+    #repeatPassword="ngModel"
+  />
+
+  <div
+    *ngIf="repeatPassword.valid && (repeatPassword.dirty || repeatPassword.touched)"  >
+    <div
+      *ngIf="registerForm.value.password != registerForm.value.repeatPassword"
+      class="alert alert-danger"
+    >
+      Password and confirm password should be the same.
+    </div>
+  </div>
+
+  <button
+    class="btn btn-primary btn-block"
+    type="submit"
+    [disabled]="!registerForm.valid"
+  >
+    Register
+  </button>
+
+  <div *ngIf="this.errorMsg != ''" class="alert alert-danger" >
+    {{this.errorMsg}}
+  </div>
+</form>

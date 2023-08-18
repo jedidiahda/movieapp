@@ -1,0 +1,23 @@
+<p>Watchlist</p>
+<div>
+  <table class="table">
+    <thead>
+      <th>Rank</th>
+      <th>Title</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let w of watchlist">
+        <td>{{w.rank}}</td>
+        <td>{{w.dvdcatalog.title}}</td>
+        <td>
+          <a
+          class="fa-solid fa-circle-minus"
+          alt="delete"
+          (click)="deleteOne(w.dvdcatalogId)"
+        ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

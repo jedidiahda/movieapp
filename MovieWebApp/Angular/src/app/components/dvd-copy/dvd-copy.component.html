@@ -1,0 +1,85 @@
+<div>
+  <div class="form-content">
+    <div class="form-content">
+      <form
+        [formGroup]="dvdCopyForm"
+        (ngSubmit)="onSubmit()"
+        style="display: flex"
+      >
+        <label for="name">Code</label>
+        <span>&nbsp;</span>
+        <input type="hidden" id="id" formControlName="id" />
+        <input type="hidden" id="status" formControlName="status" />
+        <input
+          type="text"
+          id="code"
+          formControlName="code"
+          class="form-control"
+          required="true"
+        />
+        <span>&nbsp;</span>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!dvdCopyForm.valid"
+        >
+          Save
+        </button>
+      </form>
+    </div>
+
+
+    <div class="input-group col-md-4">
+      <input
+        type="text"
+        class="form-control mb-3"
+        [(ngModel)]="search"
+        placeholder="Title"
+      />
+      <span>&nbsp;</span>
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="onSearch()"
+          type="button"
+        >
+          Search
+        </button>
+      </div>
+
+
+      <div>&nbsp;</div>
+      <!--Table-->
+      <table class="table">
+        <thead class="thead-light">
+          <th scope="col">Code</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of dvdCopies">
+            <td>{{ s.code }}</td>
+            <td>{{s.status.trim() === 'A' ? 'Available' : 'Occupied'}}</td>
+            <td>
+              <a
+                class="fa-solid fa-pen-to-square"
+                alt="edit"
+                (click)="getDvdCopy(s.code)"
+              ></a>
+            </td>
+            <td>
+              <a
+                class="fa-solid fa-circle-minus"
+                alt="delete"
+                (click)="deleteOne(s.code)"
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

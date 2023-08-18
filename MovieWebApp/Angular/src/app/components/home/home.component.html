@@ -1,0 +1,27 @@
+<div class="subscription-content">
+  <div  *ngFor="let s of subscriptions">
+    <div class="subscription-item">
+      <h3 class="subscription-header">{{s.name}}</h3>
+      <ul> 
+        <li>{{s.price | currency}}/Month</li>
+        <li>No of DVD per month:{{s.noDvdperMonth}}</li>
+        <li>At home DVD allowed:{{s.atHomeDvd}}</li>
+      </ul>
+      <button 
+      class="btn btn-primary btn-block"
+      type="button"
+      (click)="onSubscribeClick(s.id,s.name,s.price)"
+      >Subscribe</button>
+    </div>
+  </div>
+
+  <div class="flex-content">
+    <div  *ngFor="let d of dvdCatalogs">
+      <div class="flex-item ">
+        {{d.title}}<br/>
+        <button class="btn btn-primary fa fa-add" (click)="onAddToWatchlist(d.id)">Watchlist</button>
+      </div>
+    </div>
+
+  </div>
+</div>

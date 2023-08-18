@@ -1,0 +1,34 @@
+<div>
+
+  <div class="form-content "> 
+
+    <ul class="list-group">
+      <li *ngFor="let cust of list" class="list-group-item">
+        <div class="font-bold">{{cust.firstName}} {{cust.lastName}}</div>
+        <div>
+          <table width="80%">
+            <thead>
+              <th><Title></Title></th>
+              <th>Code</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dvd of cust.dvds">
+                <td>
+                  {{dvd.title}}
+                </td>
+                <td>
+                  {{dvd.code}}
+                </td>
+                <td>
+                  <button class="btn btn-info" (click)="onSendClick(cust.customerSubscriptionId,dvd.code,dvd.dvdCatalogId)" >Send</button>
+                </td>
+              </tr> 
+            </tbody>
+     
+          </table>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

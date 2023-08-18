@@ -1,0 +1,55 @@
+<form class="form-signin" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">@</span>
+      </div>
+      <input
+        type="text"
+        id="email"
+        name="email"
+        class="form-control"
+        required="true"
+        autofocus="true"
+        ngModel
+        placeholder="email"
+      />
+    </div>
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+      </div>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="password"
+        required="true"
+        ngModel
+      />
+    </div>
+
+    <button
+      class="btn btn-primary btn-block"
+      type="submit"
+      [disabled]="!loginForm.valid"
+    >
+      Login
+    </button>
+    <span>&nbsp;</span>
+    <button
+    class="btn btn-primary btn-block"
+    type="button"
+    (click)="onRegisterClick()"
+  >
+    Register
+  </button>
+  </div>
+  <div class="error-text" *ngIf="errorMsg != ''">
+    {{ errorMsg }}
+  </div>
+</form>
+

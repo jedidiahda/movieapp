@@ -1,0 +1,92 @@
+<div>
+
+  <div class="form-content "> 
+
+    <div class="input-group col-md-4">
+      <input
+        type="text"
+        class="form-control mb-3"
+        [(ngModel)]="title"
+        placeholder="Title"
+      />
+      <span>&nbsp;</span>
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="onSearch()"
+          type="button"
+        >
+          Search
+        </button>
+        <span>&nbsp;</span>
+        <button
+        class="btn btn-outline-secondary"
+        routerLink="/dvdcatalog/add"
+        type="button"
+      >
+        Add new
+      </button>
+      </div>
+    </div>
+
+    <div>&nbsp;</div>
+
+
+
+    
+    <!--Table-->
+    <table class="table">
+      <thead class="thead-light">
+        <th scope="col">Title</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Language</th>
+        <th scope="col">NoDisk</th>
+        <th scope="col">StockQty</th>
+        <th scope="col">ReleasedDate</th>
+        <th scope="col"></th>   
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of dvdCatalogs">
+          <td>{{ s.title }}</td>
+          <td>{{ s.genre }}</td>
+          <td>{{ s.language}}</td>
+          <td>{{ s.noDisk}}</td>
+          <td>{{ s.stockQty}}</td>
+          <td>{{ s.releasedDate | date :'MM/dd/YYYY'}}</td>
+          <td>
+            <a
+              class="fa-solid fa-pen-to-square"
+              routerLink="/dvdcatalog/{{ s.id }}"
+              alt="edit"
+            ></a>
+          </td>
+          <td>
+            <a 
+            class="fa-solid fa-eye"
+            routerLink="/dvdcatalog/{{ s.id }}"
+            alt="view"
+            ></a>
+          </td>
+          <td>
+            <a
+              class="fa-solid fa-circle-minus"
+              alt="delete"
+              (click)="deleteOne(s.id)"
+            ></a>
+          </td>
+          <td>
+            <a
+              class="fa-solid fa-copy"
+              routerLink="/dvdcatalog/{{ s.id }}/dvdcopy"
+              alt="dvd copy"
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

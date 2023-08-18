@@ -1,0 +1,53 @@
+
+<div class="container-md">
+  <h4>Order details</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>{{subscription.name}}</td>
+        <td>1</td>
+        <td>{{subscription.price}}</td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td>Total:</td>
+        <td>{{subscription.price}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Payment Method</h4>
+  <div>
+    <input class="form-check-input" type="radio" name="bank" id="bank" value="true" aria-label="Bank">
+    <label class="form-check-label">Pay with bank transfer</label>
+  </div>
+  <div>
+    <label class="label">Amount</label>
+    <input type="text" class="form-control" [(ngModel)]="amount"/>
+  </div>
+  <label>Bank Name</label>
+  <div>
+    <select class="form-select" (change)="onBankChange()" [(ngModel)]="bankName">
+      <option selected>select a bank</option>
+      <option value="1">Chase</option>
+      <option value="2">MidWestOne</option>
+      <option value="3">Wells Fargo</option>
+    </select>
+    <a href="{{bankLink}}">{{bankLink}}</a>
+  </div>
+  <div>
+    <label>Billing address</label>
+    <input type="text" class="form-control" [(ngModel)]="billingAddress"/>
+  </div>
+  <br/>
+  <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+</div>

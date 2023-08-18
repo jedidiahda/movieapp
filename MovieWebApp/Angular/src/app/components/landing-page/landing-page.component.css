@@ -1,0 +1,11 @@
+.subscription-content{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 5;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.subscription-item{
+  flex-basis: auto;
+}
