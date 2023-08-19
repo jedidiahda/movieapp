@@ -29,11 +29,7 @@ export class CustomerDeliveryComponent implements OnInit {
   getValidCustomerDelivery(){
     this.customerDeliveryService.getValidCustomerDelivery()
     .then(custDel => {
-      //custDel && (this.customerDelivery=custDel)
-
-      //let customer:Customer[] = [];
-
-      console.log(custDel)
+      this.list = [];
       const groupedKeys = custDel && custDel.reduce((group: {[key: string]: Customer[]}, item) => {
         if (!group[item.customerId]) {
          group[item.customerId] = [];
@@ -66,8 +62,6 @@ export class CustomerDeliveryComponent implements OnInit {
         }
         return group;
        }, {});
-
-       console.log(this.list);
     })
     .catch(err => console.log(err));
   }

@@ -25,6 +25,8 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
 import { DvdStatusComponent } from './components/dvd-status/dvd-status.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CustomerDeliveryComponent } from './components/customer-delivery/customer-delivery.component';
+import { RequestDVDComponent } from './components/request-dvd/request-dvd.component';
+import { CustomerReturnComponent } from './components/customer-return/customer-return.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { CustomerDeliveryComponent } from './components/customer-delivery/custom
     WatchlistComponent,
     DvdStatusComponent,
     PaymentComponent,
-    CustomerDeliveryComponent
+    CustomerDeliveryComponent,
+    RequestDVDComponent,
+    CustomerReturnComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +68,8 @@ import { CustomerDeliveryComponent } from './components/customer-delivery/custom
       {path:'subscription/:subscriptionId', component:SubscriptionFormComponent},
       {path:'delivery', component:CustomerDeliveryComponent},
       {path:'payment',component:PaymentComponent},
+      {path:'request',component:RequestDVDComponent},
+      {path:'return',component:CustomerReturnComponent},
 
       {path:'dvdcatalog',component:DvdCatalogComponent},
       {path:'dvdcatalog/add',component:DvdCatalogFormComponent},

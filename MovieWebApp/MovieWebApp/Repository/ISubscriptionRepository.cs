@@ -1,4 +1,5 @@
 ﻿using MovieWebApp.Models;
+using MovieWebApp.Service.DTO;
 
 namespace MovieWebApp.Repository
 {
@@ -13,7 +14,7 @@ namespace MovieWebApp.Repository
 
         public CustomerSubscription Subscribe(CustomerSubscription customerSubscription, Payment payment);
         public CustomerSubscription GetAvailableScription(int customerId, DateTime date);
-        public IEnumerable<Dvdstatus> GetCustomerDvdStatus(int customerSubId);
+        public IEnumerable<DvdStatusDTO> GetCustomerDvdStatus(int customerSubId);
         
     }
 }

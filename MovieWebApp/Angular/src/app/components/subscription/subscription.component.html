@@ -1,16 +1,15 @@
 <div>
-
-  <div class="form-content "> 
+  <div class="form-content">
     <div class="input-group col-md-4">
-        <button
-          class="btn btn-outline-secondary"
-          routerLink="/subscription/add"
-          type="button"
-        >
-          Add new
-        </button>
-      </div>
-    
+      <button
+        class="btn btn-outline-secondary"
+        routerLink="/subscription/add"
+        type="button"
+      >
+        Add new
+      </button>
+    </div>
+
     <!--Table-->
     <table class="table">
       <thead class="thead-light">
@@ -26,8 +25,8 @@
         <tr *ngFor="let s of subscriptions">
           <td>{{ s.name }}</td>
           <td>{{ s.atHomeDvd }}</td>
-          <td>{{ s.noDvdperMonth}}</td>
-          <td>{{ s.price | number: "1.0-1" }}</td>
+          <td>{{ s.noDvdperMonth }}</td>
+          <td>{{ s.price | number : "1.0-1" }}</td>
 
           <td>
             <a
@@ -35,13 +34,12 @@
               routerLink="/subscription/{{ s.id }}"
               alt="edit"
             ></a>
-
           </td>
           <td>
-            <a 
-            class="fa-solid fa-eye"
-            routerLink="/subscription/{{ s.id }}"
-            alt="view"
+            <a
+              class="fa-solid fa-eye"
+              routerLink="/subscription/{{ s.id }}"
+              alt="view"
             ></a>
           </td>
           <td>
@@ -54,6 +52,5 @@
         </tr>
       </tbody>
     </table>
-
   </div>
 </div>

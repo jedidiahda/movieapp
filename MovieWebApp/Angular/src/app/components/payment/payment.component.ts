@@ -7,32 +7,38 @@ import { SubscriptionDataService } from 'src/app/services/subscription-data.serv
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent implements OnInit {
-  subscription: CustomerSubscription=new CustomerSubscription();
-  bankName:string='';
-  bankLink:string='';
-  amount:number=0;
-  billingAddress:string="";
-  constructor(private subscriptionService:SubscriptionDataService,
-    private router:Router){
-    
-  }
+  subscription: CustomerSubscription = new CustomerSubscription();
+  bankName: string = '';
+  bankLink: string = '';
+  amount: number = 0;
+  billingAddress: string = '';
+  constructor(
+    private subscriptionService: SubscriptionDataService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.subscription = this.subscriptionService.subscription;
     console.log(this.subscriptionService.subscription.name);
   }
 
-  onBankChange(){
-    switch(this.bankName){
-      case '1': this.bankLink='https://www.chase.com/';break;
-      case '2':this.bankLink='https://www.midwestone.bank/';break;
-      case '3':this.bankLink='https://www.wellsfargo.com/';break;
+  onBankChange() {
+    switch (this.bankName) {
+      case '1':
+        this.bankLink = 'https://www.chase.com/';
+        break;
+      case '2':
+        this.bankLink = 'https://www.midwestone.bank/';
+        break;
+      case '3':
+        this.bankLink = 'https://www.wellsfargo.com/';
+        break;
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     var today = new Date();
     today.setDate(today.getDay() + 30);
     var nextMonth = today;
@@ -41,17 +47,18 @@ export class PaymentComponent implements OnInit {
     payment.paymentDate = new Date();
     payment.paymentType = 1;
     payment.billingAddress = this.billingAddress;
-    this.subscriptionService.subscribe({
-      id:0,
-      SubscriptId:this.subscription.subscriptionId,
-      customerId:this.subscription.customerId,
-      startDate:new Date(),
-      endDate:nextMonth,
-      payment:payment
-    })
-    .then(s =>{
-      this.router.navigate(['/home']);
-    })
-    .catch(err => console.log(err));
+    this.subscriptionService
+      .subscribe({
+        id: 0,
+        SubscriptId: this.subscription.subscriptId,
+        customerId: this.subscription.customerId,
+        startDate: new Date(),
+        endDate: nextMonth,
+        payment: payment,
+      })
+      .then((s) => {
+        this.router.navigate(['/home']);
+      })
+      .catch((err) => console.log(err));
   }
 }

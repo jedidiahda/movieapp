@@ -1,6 +1,7 @@
 ﻿
 
 using MovieWebApp.Models;
+using MovieWebApp.Service.DTO;
 
 namespace MovieWebApp.Repository
 {
@@ -87,12 +88,29 @@ namespace MovieWebApp.Repository
         public CustomerSubscription GetAvailableScription(int customerId,DateTime date)
         {
             return _movieDbContext.CustomerSubscriptions
-                .Where(s => s.CustomerId == customerId && s.StartDate >= date && date <= s.EndDate).FirstOrDefault(); 
+                .Where(s => s.CustomerId == customerId && s.StartDate <= date && date <= s.EndDate).FirstOrDefault(); 
         }
 
-        public IEnumerable<Dvdstatus> GetCustomerDvdStatus(int customerSubId)
+        public IEnumerable<DvdStatusDTO> GetCustomerDvdStatus(int customerSubId)
         {
-            return _movieDbContext.Dvdstatuses.Where(s => s.CustomerSubscriptionId == customerSubId);
+            var list = from d in _movieDbContext.Dvdstatuses
+                        join cat in _movieDbContext.Dvdcatalogs on d.DvdcatalogId equals cat.Id
+                        where d.CustomerSubscriptionId == customerSubId
+                        select new { d, cat };
+
+            var dtos = new List<DvdStatusDTO>();
+            foreach (var d in list)
+            {
+                var dvd = new DvdStatusDTO();
+                dvd.customerSubscriptionId = d.d.CustomerSubscriptionId;
+                dvd.DeliveredDate = d.d.DeliveredDate;
+                dvd.ReturnedDate = d.d.ReturnedDate;
+                dvd.Title = d.cat.Title;
+                dtos.Add(dvd);
+            }
+
+            return dtos;
         }
+
     }
 }

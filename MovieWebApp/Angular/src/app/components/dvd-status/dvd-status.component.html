@@ -1,1 +1,22 @@
-<p>dvd-status works!</p>
+<div>
+
+  <div class="form-content "> 
+
+    <!--Table-->
+    <table class="table">
+      <thead class="thead-light">
+        <th scope="col">Title</th>
+        <th scope="col">Delivery Date</th>
+        <th scope="col">Returned Date</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of dvdStatuses">
+          <td>{{ s.title }}</td>
+          <td>{{ s.deliveredDate }}</td>
+          <td>{{ s.returnedDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

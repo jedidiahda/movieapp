@@ -16,11 +16,16 @@
   class="navbar-brand"
   *ngIf="this.authService.userRole == 'admin'"
   routerLink="delivery"
-  >Customer Delivery</a
->
+  >Delivery</a>
+  <a
+  class="navbar-brand"
+  *ngIf="this.authService.userRole == 'admin'"
+  routerLink="return"
+  >Return</a>
 
   <a class="navbar-brand" *ngIf="this.authService.userRole == 'user' && this.isValidSubscription == true" routerLink="dvdstatus">DvdStatus</a>
   <a class="navbar-brand" *ngIf="this.authService.userRole == 'user' && this.isValidSubscription == true" routerLink="watchlist">Watchlist</a>
+  <a class="navbar-brand" *ngIf="this.authService.userRole == 'user' && this.isValidSubscription == true" routerLink="request">Request</a>
  
 
   <a

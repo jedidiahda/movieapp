@@ -15,5 +15,7 @@ public partial class Dvdstatus
 
     public string? Dvdcode { get; set; }
 
+    public int? DvdcatalogId { get; set; }
+
     public virtual CustomerSubscription? CustomerSubscription { get; set; }
 }

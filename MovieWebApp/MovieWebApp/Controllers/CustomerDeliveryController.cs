@@ -38,5 +38,28 @@ namespace MovieWebApp.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("return")]
+        public IActionResult ReturnDVD(int subscriptionId, string code, int dvdCatalogId)
+        {
+            try
+            {
+                _customerDeliveryService.ReturnDVDFromCustomer(subscriptionId, code, dvdCatalogId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("DVdStatus")]
+        public IActionResult GetDVDStatus()
+        {
+            return Ok(_customerDeliveryService.GetDvdstatuses());
+        }
+
     }
 }

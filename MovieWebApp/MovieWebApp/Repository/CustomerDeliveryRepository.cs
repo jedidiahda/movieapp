@@ -13,6 +13,33 @@ namespace MovieWebApp.Repository
             _movieDbContext = movieDbContext;
         }
 
+        public List<CustomerReturnDTO> GetDvdstatuses()
+        {
+            var list = from sts in _movieDbContext.Dvdstatuses
+                       join cus in _movieDbContext.CustomerSubscriptions
+                       on sts.CustomerSubscriptionId equals cus.Id
+                       join c in _movieDbContext.Customers on cus.CustomerId equals c.Id
+                       join dvd in _movieDbContext.Dvdcatalogs on sts.DvdcatalogId equals dvd.Id
+                       where sts.ReturnedDate == null
+                       select new { sts, c ,dvd};
+            var dtos = new List<CustomerReturnDTO>();
+            foreach (var d in list)
+            {
+                dtos.Add(new CustomerReturnDTO
+                {
+                    Code=d.sts.Dvdcode,
+                    CustomerId=d.c.Id,
+                    CustomerName=d.c.FirstName + " " + d.c.LastName,
+                    CustomerSubscriptionId=d.sts.CustomerSubscriptionId,
+                    DvdCatalogId=d.sts.DvdcatalogId,
+                    Title=d.dvd.Title,
+                    DeliveryDate=d.sts.DeliveredDate,
+                    ReturnDate=d.sts.ReturnedDate
+                });
+            }
+            return dtos;
+        }
+
         public List<CustomerDeliveryDTO> GetValidCustomerDelivery()
         {
             //var list = from c in _movieDbContext.CustomerSubscriptions
@@ -48,40 +75,6 @@ namespace MovieWebApp.Repository
             //           select wholegroup.ToList();
 
 
-
-            //List<CustomerDeliveryDTO> custDto = new List<CustomerDeliveryDTO>();
-            //foreach(var item in list)
-            //{
-            //    var dto = new CustomerDeliveryDTO();
-            //    dto.CustomerId = item.First().c.CustomerId;
-            //    dto.FirstName = item.First().cust.FirstName;
-            //    dto.LastName = item.First().cust.LastName;
-            //    dto.SubscriptionId = item.First().c.SubscriptId;
-            //    dto.dvdCatalogDTO = new DVDCatalogDTO
-            //    {
-            //        Id = item.First().dw.Id,
-            //        Title = item.First().dw.Title,
-            //        //Description = item.First().dw.Description,
-            //        //Genre = item.First().dw.Genre,
-            //    };
-            //    custDto.Add(dto);
-            //}
-
-            //var customerDeliveryDtos = _movieDbContext.CustomerDeliveryDtos
-            //    .FromSql($"EXECUTE dbo.GetValidCustomerDelivery")
-            //    .Select(s => new MovieWebApp.Service.DTO.CustomerDeliveryDTO
-            //    {
-            //        customerId = s.CustomerId??0,
-            //        DVDCatalogId= s.DvdcatalogId??0,
-            //        firstName = s.FirstName??"",
-            //        lastName = s.LastName??"",
-            //        gender = s.Gender??"",
-            //        status = s.Status??"",
-            //        subscriptId = s.SubscriptId??0,
-            //        title = s.Title??"",
-            //    }).ToList();
-            //var cust = _movieDbContextDerive.TestDto.FromSql($"EXECUTE TestStoreProc").ToList();
-
             var customerDeliveryDtos = _movieDbContext.CustomerDeliveryDtos
                 .FromSql($"EXECUTE dbo.GetValidCustomerDelivery").ToList();
 
@@ -106,6 +99,36 @@ namespace MovieWebApp.Repository
             return dto;
         }
 
+        public void ReturnDVDFromCustomer(int susubscriptionId, string code, int dvdCatalogId)
+        {
+            var tran = _movieDbContext.Database.BeginTransaction();
+            try
+            {
+                var dvdStatus = _movieDbContext.Dvdstatuses.Where(s => s.CustomerSubscriptionId==susubscriptionId && s.Dvdcode == code && s.DvdcatalogId==dvdCatalogId).SingleOrDefault();
+                if(dvdStatus != null)
+                {
+                    dvdStatus.ReturnedDate = DateTime.Now;
+                }
+
+                var dvdCopy =_movieDbContext.Dvdcopies.Where(s => s.Code == code && s.IsDeleted == false && s.DvdcatalogId == dvdCatalogId).SingleOrDefault();
+                if(dvdCopy != null)
+                {
+                    dvdCopy.Status = "A";
+                }
+                _movieDbContext.SaveChanges();
+                tran.Commit();
+            }catch (Exception ex)
+            {
+                tran.Rollback();
+                tran.Dispose();
+                throw ex;
+            }
+            finally
+            {
+                tran.Dispose();
+            }
+        }
+
         public void SendDvdToCustomer(int susubscriptionId, string code,int dvdCatalogId)
         {
             var tran = _movieDbContext.Database.BeginTransaction();
@@ -115,7 +138,8 @@ namespace MovieWebApp.Repository
                 {
                     DeliveredDate = DateTime.Now,
                     CustomerSubscriptionId = susubscriptionId,
-                    Dvdcode = code
+                    Dvdcode = code,
+                    DvdcatalogId = dvdCatalogId
                 });
 
                 var dvdCopy = _movieDbContext.Dvdcopies.Where(s => s.DvdcatalogId == dvdCatalogId && s.Code == code && s.IsDeleted==false).SingleOrDefault();

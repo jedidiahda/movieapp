@@ -230,6 +230,7 @@ public partial class MovieDbContext : DbContext
             entity.Property(e => e.DeliveredDate)
                 .HasColumnType("date")
                 .HasColumnName("deliveredDate");
+            entity.Property(e => e.DvdcatalogId).HasColumnName("DVDCatalogId");
             entity.Property(e => e.Dvdcode)
                 .HasMaxLength(100)
                 .HasColumnName("DVDCode");

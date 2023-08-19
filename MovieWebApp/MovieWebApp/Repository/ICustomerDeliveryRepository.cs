@@ -7,6 +7,8 @@ namespace MovieWebApp.Repository
     {
 
         public abstract List<CustomerDeliveryDTO> GetValidCustomerDelivery();
+        public abstract List<CustomerReturnDTO> GetDvdstatuses();
         public abstract void SendDvdToCustomer(int susubscriptionId,string code,int dvdCatalogId);
+        public abstract void ReturnDVDFromCustomer(int susubscriptionId, string code, int dvdCatalogId);
     }
 }

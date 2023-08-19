@@ -26,6 +26,7 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IWatchlistRepository, WatchlistRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<ICustomerDeliveryRepository, CustomerDeliveryRepository>();
+builder.Services.AddScoped<IRequestDVDRepository, RequestDVDRepository>();
 
 builder.Services.AddControllers()
         .AddNewtonsoftJson(

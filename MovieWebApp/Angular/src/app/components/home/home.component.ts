@@ -11,29 +11,27 @@ import { WatchlistService } from 'src/app/services/watchlist.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   subscriptions: Subscription[] = [];
-  dvdCatalogs:DVDCatalog[] = [];
-  isValidSubscription:boolean=false;
+  dvdCatalogs: DVDCatalog[] = [];
+  isValidSubscription: boolean = false;
 
-  constructor(private subscriptionService:SubscriptionDataService,
-    private authService:AuthenticationService,
-    private dvdService:DvdCatalogService,
-    private wathclistService:WatchlistService,
-    private activeRoute:ActivatedRoute,
-    private router:Router){
+  constructor(
+    private subscriptionService: SubscriptionDataService,
+    private authService: AuthenticationService,
+    private dvdService: DvdCatalogService,
+    private wathclistService: WatchlistService,
+    private activeRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  }
-  
   ngOnInit(): void {
-    console.log(this.authService.userRole)
-    if(this.authService.userRole == 'user'){
+    console.log(this.authService.userRole);
+    if (this.authService.userRole == 'user') {
       this.getAvailableSubscription();
     }
-   
-    
   }
 
   getSubscriptions() {
@@ -42,37 +40,40 @@ export class HomeComponent implements OnInit {
       .then((sub) => sub && (this.subscriptions = sub))
       .catch((err) => console.log(err));
   }
-  onSubscribeClick(subsciptionId:string,name:string,price:number){
-    this.subscriptionService.subscription.customerId=this.authService.customerId;
-    this.subscriptionService.subscription.subscriptionId = subsciptionId;
+  onSubscribeClick(subsciptionId: string, name: string, price: number) {
+    this.subscriptionService.subscription.customerId =
+      this.authService.customerId;
+    this.subscriptionService.subscription.subscriptId = subsciptionId;
     this.subscriptionService.subscription.name = name;
     this.subscriptionService.subscription.price = price;
-    
+
     this.router.navigate(['/payment']);
   }
 
-  getAvailableSubscription(){
-    this.subscriptionService.getAvailableScription(parseInt(this.authService.customerId),new Date())
-      .then(subscriptions => {
+  getAvailableSubscription() {
+    this.subscriptionService
+      .getAvailableScription(parseInt(this.authService.customerId), new Date())
+      .then((subscriptions) => {
         this.isValidSubscription = subscriptions !== undefined;
-        if(!this.isValidSubscription){
+        if (!this.isValidSubscription) {
           this.getSubscriptions();
-        }else{
+        } else {
           this.getDVDCatalogs();
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
-  getDVDCatalogs(){
-    this.dvdService.getAll('',10,1)
-      .then(dvdCatalogs => dvdCatalogs && (this.dvdCatalogs = dvdCatalogs));
+  getDVDCatalogs() {
+    this.dvdService
+      .getAll('', 10, 1)
+      .then((dvdCatalogs) => dvdCatalogs && (this.dvdCatalogs = dvdCatalogs));
   }
 
-  onAddToWatchlist(id:string){
-    this.wathclistService.createOne(parseInt(this.authService.customerId),parseInt(id))
-    .then(s => alert('added to watchlist'))
-    .catch(err => console.log(err));
+  onAddToWatchlist(id: string) {
+    this.wathclistService
+      .createOne(parseInt(this.authService.customerId), parseInt(id))
+      .then((s) => alert('added to watchlist'))
+      .catch((err) => console.log(err));
   }
-
 }

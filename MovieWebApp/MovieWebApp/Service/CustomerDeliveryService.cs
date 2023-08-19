@@ -25,5 +25,15 @@ namespace MovieWebApp.Service
         {
             _customerDeliverRepository.SendDvdToCustomer(susubscriptionId,code, dvdCatalogId);
         }
+
+        public List<CustomerReturnDTO> GetDvdstatuses()
+        {
+            return _customerDeliverRepository.GetDvdstatuses();
+        }
+
+        public void ReturnDVDFromCustomer(int susubscriptionId, string code, int dvdCatalogId)
+        {
+            _customerDeliverRepository.ReturnDVDFromCustomer(susubscriptionId,code,dvdCatalogId);
+        }
     }
 }

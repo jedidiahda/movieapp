@@ -98,7 +98,10 @@ namespace MovieWebApp.Controllers
         [Route("GetAvailableScription")]
         public IActionResult GetAvailableScription(int customerId,DateTime date)
         {
-            return Ok(CustomerSubscriptionAdapter.GetCustomerSubscriptionDTO( _SubscriptionService.GetAvailableScription(customerId, date)));
+            var subscriptions= _SubscriptionService.GetAvailableScription(customerId, date);
+            if (subscriptions == null) return Ok();
+
+            return Ok(CustomerSubscriptionAdapter.GetCustomerSubscriptionDTO(subscriptions));
         }
 
         [HttpGet]

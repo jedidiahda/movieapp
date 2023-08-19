@@ -57,7 +57,7 @@ namespace MovieWebApp.Service
         {
             return _subscriptionRepository.GetAvailableScription(customerId,date);
         }
-        public IEnumerable<Dvdstatus> GetCustomerDvdStatus(int customerSubId)
+        public IEnumerable<DvdStatusDTO> GetCustomerDvdStatus(int customerSubId)
         {
             return _subscriptionRepository.GetCustomerDvdStatus(customerSubId);
         }
